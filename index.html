@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Geosecret</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="./triplesec.js"></script>
+    <script src="./geosecret.js"></script>
+</head>
+<body onload="init();">
+    <form onsubmit="submitEncryptForm(); return false" id="encrypt-form" method="POST">
+        <h1>Encrypt secret</h1>
+        <label>Text
+            <textarea name="plain" id="encrypt-plain" autofocus></textarea>
+        </label>
+        <label>Password
+            <input name="pwd" id="encrypt-pwd" type="text" autocomplete="off" readonly />
+        </label>
+        <label id="encrypt-error-area" class="error"></label>
+        <label>
+            <input type="submit" value="Encrypt" />
+        </label>
+    </form>
+    <form onsubmit="submitDecryptForm(); return false" id="decrypt-form" method="POST">
+        <h1>Decrypt secret</h1>
+        <label>Text
+            <textarea name="cyphertext" id="decrypt-cyphertext" readonly></textarea>
+        </label>
+        <label>Password
+            <input name="pwd" id="decrypt-pwd" type="text" autocomplete="off" readonly />
+        </label>
+        <label id="decrypt-error-area" class="error"></label>
+        <label>
+            <input type="submit" value="Decrypt" />
+        </label>
+    </form>
+</body>
+</html>

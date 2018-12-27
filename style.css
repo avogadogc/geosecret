@@ -1,0 +1,11 @@
+form label {
+  display: block
+}
+
+#encrypt-form, #decrypt-form {
+  display: none; /* Hidden until shown by javascript */
+}
+
+.error {
+  color: red;
+}
