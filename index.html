@@ -14,7 +14,7 @@
             <textarea name="plain" id="encrypt-plain" autofocus></textarea>
         </label>
         <label>Password
-            <input name="pwd" id="encrypt-pwd" type="text" autocomplete="off" readonly />
+            <input id="encrypt-pwd" type="text" autocomplete="off" />
         </label>
         <label id="encrypt-error-area" class="error"></label>
         <label>
@@ -27,12 +27,15 @@
             <textarea name="cyphertext" id="decrypt-cyphertext" readonly></textarea>
         </label>
         <label>Password
-            <input name="pwd" id="decrypt-pwd" type="text" autocomplete="off" readonly />
+            <input id="decrypt-pwd" type="text" autocomplete="off" />
         </label>
         <label id="decrypt-error-area" class="error"></label>
         <label>
             <input type="submit" id="decrypt-submit" value="Decrypt" />
         </label>
+    </form>
+    <form action="" id="result-form" method="POST">
+      <textarea name="plain" id="result-plain"></textarea>
     </form>
 </body>
 </html>

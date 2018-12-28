@@ -1,6 +1,7 @@
 function init() {
     var encryptForm = document.getElementById("encrypt-form")
     var decryptForm = document.getElementById("decrypt-form")
+    var resultForm = document.getElementById("result-form")
 
     // Create custom events for our forms being ready
     window.encryptDone = document.createEvent('event')
@@ -13,21 +14,21 @@ function init() {
     if (chunks.length > 1) {
         encryptForm.style.display = "none"
         decryptForm.style.display = "block"
+        resultForm.style.display = "none"
         document.getElementById("decrypt-cyphertext").value = chunks[1]
     } else {
         encryptForm.style.display = "block"
         decryptForm.style.display = "none"
+        resultForm.style.display = "none"
     }
-
-    // Remove readonly attribute from password fields - this prevent browsers from attempting to save them
-    document.getElementById("encrypt-pwd").removeAttribute("readonly")
-    document.getElementById("decrypt-pwd").removeAttribute("readonly")
 }
 
 function submitEncryptForm() {
     setEncryptError("")
+    var pwdField = document.getElementById("encrypt-pwd")
     var plain = document.getElementById("encrypt-plain").value.trim()
-    var pwd = document.getElementById("encrypt-pwd").value
+    var pwd = pwdField.value
+    pwdField.value = '' // Do not keep the password around longer than necessary
     encrypt(plain, pwd)
 }
 
@@ -59,8 +60,10 @@ function setEncryptError(msg) {
 
 function submitDecryptForm() {
     setDecryptError("")
+    var pwdField = document.getElementById("decrypt-pwd")
     var plain = document.getElementById("decrypt-cyphertext").value.trim()
-    var pwd = document.getElementById("decrypt-pwd").value
+    var pwd = pwdField.value
+    pwdField.value = '' // Do not keep the password around longer than necessary
     decrypt(plain, pwd)
 }
 
@@ -80,8 +83,9 @@ function onDecryptionComplete(err, buff) {
     if (err) {
         setDecryptError(err)
     } else {
-        document.getElementById("decrypt-pwd").value = ""
-        document.getElementById("decrypt-cyphertext").value = buff.toString("UTF-8")
+        document.getElementById("result-plain").value = buff.toString("UTF-8")
+        document.getElementById("decrypt-form").style.display = 'none'
+        document.getElementById("result-form").style.display = 'block'
     }
     document.getElementById("decrypt-form").dispatchEvent(window.decryptDone)
 }

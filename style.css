@@ -2,7 +2,7 @@ form label {
   display: block
 }
 
-#encrypt-form, #decrypt-form {
+form {
   display: none; /* Hidden until shown by javascript */
 }
 

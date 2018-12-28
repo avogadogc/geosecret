@@ -1,20 +1,17 @@
 QUnit.test("display_encrypt_form", async assert => {
   var w = await loadSut("./index.html", "SUT")
-  var ef = sutElement(w, "encrypt-form")
-  var df = sutElement(w, "decrypt-form")
-
-  assert.equal(ef.style.display, 'block')
-  assert.equal(df.style.display, 'none')
+  assert.equal(sutElement(w, "encrypt-form").style.display, 'block')
+  assert.equal(sutElement(w, "decrypt-form").style.display, 'none')
+  assert.equal(sutElement(w, "result-form").style.display, 'none')
   cleanSut(w)
 })
 
 QUnit.test("display_decrypt_form", async assert => {
   var w = await loadSut("./index.html#foobar")
-  var ef = sutElement(w, "encrypt-form")
-  var df = sutElement(w, "decrypt-form")
-
-  assert.equal(ef.style.display, 'none')
-  assert.equal(df.style.display, 'block')
+  assert.equal(sutElement(w, "encrypt-form").style.display, 'none')
+  assert.equal(sutElement(w, "decrypt-form").style.display, 'block')
+  assert.equal(sutElement(w, "result-form").style.display, 'none')
+  assert.equal(sutElement(w, "decrypt-cyphertext").value, 'foobar')
   cleanSut(w)
 })
 
@@ -50,12 +47,18 @@ QUnit.test("encrypt-decrypt", async assert => {
   var w = await loadSut("./index.html")
   await tryEncrypt(w, PLAIN, PASSWD)
 
+  assert.equal(sutElement(w, "encrypt-pwd").value, '')
   assert.equal(sutElement(w, "decrypt-form").style.display, 'block')
   assert.equal(sutElement(w, "encrypt-form").style.display, 'none')
+  assert.equal(sutElement(w, "result-form").style.display, 'none')
 
   assert.ok(sutElement(w, "decrypt-cyphertext").value.length > 0)
   await tryDecrypt(w, PASSWD)
-  assert.equal(sutElement(w, "decrypt-cyphertext").value, PLAIN)
+  assert.equal(sutElement(w, "decrypt-pwd").value, '')
+  assert.equal(sutElement(w, "decrypt-form").style.display, 'none')
+  assert.equal(sutElement(w, "encrypt-form").style.display, 'none')
+  assert.equal(sutElement(w, "result-form").style.display, 'block')
+  assert.equal(sutElement(w, "result-plain").value, PLAIN)
   cleanSut(w)
 })
 
