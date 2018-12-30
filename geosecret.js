@@ -81,6 +81,12 @@ function decrypt(data, password) {
 
 function onDecryptionComplete(err, buff) {
     if (err) {
+        // Assign human readable messages for known problems
+        if (err.toString().includes('Signature mismatch or bad decryption key')) {
+            err = "Invalid password provided (" + err + ")"
+        } else if (err.toString().includes('Ciphertext underrun in header') || err.toString().includes("bad header")) {
+            err = "Invalid encrypted text provided. Check the URL was transfered correctly (" + err + ")"
+        }
         setDecryptError(err)
     } else {
         document.getElementById("result-plain").value = buff.toString("UTF-8")

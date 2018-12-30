@@ -62,6 +62,34 @@ QUnit.test("encrypt-decrypt", async assert => {
   cleanSut(w)
 })
 
+QUnit.test("fail-on-password-mismatch", async assert => {
+  var PLAIN = "Hello World!"
+  var PASSWD = "secret_password_here"
+
+  var w = await loadSut("./index.html")
+  await tryEncrypt(w, PLAIN, PASSWD)
+  await tryDecrypt(w, PASSWD + '.')
+  var error = sutElement(w, "decrypt-error-area").innerHTML
+  assert.ok(error.startsWith('Invalid password provided'), error)
+  cleanSut(w)
+})
+
+QUnit.test("fail-on-invalid-anchor", async assert => {
+  var inputs = ['#', '#asdf', '#YXNkZgo=']
+  assert.expect(inputs.length)
+  var done = assert.async(inputs.length)
+
+  inputs.forEach(async fragment => {
+    var w = await loadSut("./index.html" + fragment)
+    await tryDecrypt(w, "secret_password_here")
+    var error = sutElement(w, "decrypt-error-area")
+    console.log(fragment + " => " + error.innerHTML)
+    assert.ok(error.innerHTML.startsWith('Invalid encrypted text provided. Check the URL was transfered correctly'))
+    cleanSut(w)
+    done()
+  })
+})
+
 /**
  * Load SUT in an iframe and wait for it to become ready.
  * @param url to load
