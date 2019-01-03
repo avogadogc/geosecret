@@ -16,6 +16,7 @@ function init() {
         decryptForm.style.display = "block"
         resultForm.style.display = "none"
         document.getElementById("decrypt-cyphertext").value = chunks[1]
+        document.getElementById("decrypt-pwd").focus()
     } else {
         encryptForm.style.display = "block"
         decryptForm.style.display = "none"
@@ -34,7 +35,7 @@ function submitEncryptForm() {
 
 function encrypt(plain, password) {
     if (password.length < 6) {
-        onEncryptionComplete("Password is too short, at least 6 characters expected", null)
+        onEncryptionComplete("Password is too short, at least 6 characters expected!", null)
         return
     }
     triplesec.encrypt ({

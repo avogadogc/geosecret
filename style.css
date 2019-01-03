@@ -1,11 +1,44 @@
-form label {
-  display: block
+body {
+  max-width: 500px;
+  margin: 0 auto;
+
+  font-family: Verdana, Geneva, sans-serif;
+  letter-spacing: .5px;
 }
 
 form {
   display: none; /* Hidden until shown by javascript */
 }
 
+h1 {
+  text-align: center;
+}
+
+label {
+  margin: 5px auto 5px auto;
+}
+
+form label {
+  display: block
+}
+
 .error {
   color: red;
+}
+
+input[type^="text"], textarea {
+  width: 100%;
+  padding: 6px;
+  border: 2px solid #d4d4d4;
+  box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;
+  font-family: monospace;
+  font-size: inherit;
+}
+
+input[type^="submit"] {
+  padding: 10px 15px;
+  border: 2px solid #d4d4d4;
+  float: right; clear: both;
+
+  letter-spacing: .5px;
 }

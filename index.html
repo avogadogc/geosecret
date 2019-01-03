@@ -10,32 +10,27 @@
 <body onload="init();">
     <form onsubmit="submitEncryptForm(); return false" id="encrypt-form" method="POST">
         <h1>Encrypt secret</h1>
-        <label>Text
-            <textarea name="plain" id="encrypt-plain" autofocus></textarea>
-        </label>
-        <label>Password
-            <input id="encrypt-pwd" type="text" autocomplete="off" />
-        </label>
+        <label for="encrypt-plain">Text</label>
+        <textarea name="plain" id="encrypt-plain" autofocus rows="5"></textarea>
+
+        <label>Password</label>
+        <input id="encrypt-pwd" type="text" autocomplete="off" />
+
         <label id="encrypt-error-area" class="error"></label>
-        <label>
-            <input type="submit" id="encrypt-submit" value="Encrypt" />
-        </label>
+        <input type="submit" id="encrypt-submit" value="Encrypt" />
     </form>
     <form onsubmit="submitDecryptForm(); return false" id="decrypt-form" method="POST">
         <h1>Decrypt secret</h1>
-        <label>Text
-            <textarea name="cyphertext" id="decrypt-cyphertext" readonly></textarea>
-        </label>
-        <label>Password
-            <input id="decrypt-pwd" type="text" autocomplete="off" />
-        </label>
+        <label for="decrypt-cyphertext">Encrypted secret</label>
+        <textarea name="cyphertext" id="decrypt-cyphertext" readonly rows="5"></textarea>
+        <label for="decrypt-pwd">Password</label>
+        <input id="decrypt-pwd" type="text" autocomplete="off" />
         <label id="decrypt-error-area" class="error"></label>
-        <label>
-            <input type="submit" id="decrypt-submit" value="Decrypt" />
-        </label>
+        <input type="submit" id="decrypt-submit" value="Decrypt" />
     </form>
     <form action="" id="result-form" method="POST">
-      <textarea name="plain" id="result-plain"></textarea>
+      <h1>It's all yours!</h1>
+      <textarea name="plain" id="result-plain" readonly rows="5"></textarea>
     </form>
 </body>
 </html>
