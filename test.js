@@ -90,6 +90,21 @@ QUnit.test("fail-on-invalid-anchor", async assert => {
   })
 })
 
+QUnit.test("same-input-provides-different-output", async assert => {
+  var PLAIN = "Hello World!"
+  var PASSWD = "secret_password_here"
+
+  var w = await loadSut("./index.html")
+  await tryEncrypt(w, PLAIN, PASSWD)
+  var origCypherText = sutElement(w, "decrypt-cyphertext").value
+
+  var w = await loadSut("./index.html")
+  await tryEncrypt(w, PLAIN, PASSWD)
+  var newCypherText = sutElement(w, "decrypt-cyphertext").value
+
+  assert.notEqual(origCypherText, newCypherText, 'CypherTexts are expected to differ')
+})
+
 /**
  * Load SUT in an iframe and wait for it to become ready.
  * @param url to load
