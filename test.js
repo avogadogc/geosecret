@@ -16,7 +16,7 @@ QUnit.test("display_decrypt_form", async assert => {
 })
 
 QUnit.test("error-invalid-password", async assert => {
-  var ERROR_MSG = "Password is too short, at least 6 characters expected"
+  var ERROR_MSG = "Password is too short, at least 6 characters expected!"
 
   var w = await loadSut("./index.html")
   var e = sutElement(w, "encrypt-error-area")
@@ -116,6 +116,8 @@ function loadSut(url) {
   // might start interacting with the content before it is ready
   return new Promise((resolve, reject) => {
     var iframe = document.createElement('iframe');
+    iframe.setAttribute("height", "400")
+    iframe.setAttribute("width", "500")
     iframe.setAttribute("src", url)
     iframe.onload = () => { resolve(iframe.contentWindow) }
     document.body.appendChild(iframe)
